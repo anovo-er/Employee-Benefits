@@ -1,0 +1,76 @@
+﻿@{
+    ViewData["Title"] = "New Application";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="display-6">New Application</h1>
+<hr />
+
+<div class="row">
+    <div class="col-4">
+        <div data-bind="visible: !EmployeeAdded()">
+            <div class="mb-3">
+                <label class="form-label">Employee First Name</label>
+                <input type="text" class="form-control" data-bind="value: Employee().FirstName">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Employee Last Name</label>
+                <input type="text" class="form-control" data-bind="value: Employee().LastName">
+            </div>
+            <button type="button" class="btn btn-primary" data-bind="click: addEmployee">Continue</button>
+        </div>
+        <div data-bind="visible: AddingDependant()">
+            <div class="mb-3">
+                <label class="form-label">Dependant First Name</label>
+                <input type="text" class="form-control" data-bind="value: Dependant().FirstName">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Dependant Last Name</label>
+                <input type="text" class="form-control" data-bind="value: Dependant().LastName">
+            </div>
+            <button type="button" class="btn btn-primary" data-bind="click: addDependant">Continue</button>
+        </div>
+
+        <button type="button" class="btn btn-success" data-bind="click: addingDependant, visible: EmployeeAdded() && !AddingDependant()">Add Dependant</button>
+    </div>
+    <div class="col-7" data-bind="visible: EmployeeAdded()">
+        <!-- ko with: Benefits -->
+        <div class="row">
+            <dvi class="col-6">
+                <h1 class="display-6">Benefits Preview</h1>
+                <hr />
+                <p>Employee Full Name: <strong data-bind="text: employee.fullName"></strong></p>
+                <p>Annual Salary: <strong>$</strong><strong data-bind="text: annualSalary"></strong></p>
+                <p>Benefit Cost: <strong>$</strong><strong data-bind="text: employee.benefitsCost"></strong></p>
+            </dvi>
+            <dvi class="col-6">
+                <h1 class="display-6">Totals</h1>
+                <hr />
+                <p>Annual Benefits Total Cost: <strong>$</strong><strong data-bind="text: annualBenefitsTotalCost"></strong></p>
+                <p>Monthly Benefits Total Cost: <strong>$</strong><strong data-bind="text: monthlyBenefitsTotalCost"></strong></p>
+                <p>Paycheck After Deductions: <strong>$</strong><strong data-bind="text: paycheckAfterDeductions"></strong></p>
+            </dvi>
+        </div>
+        <!-- ko if: dependants.length > 0 -->
+        <div class="row">
+            <h1 class="display-6">Dependants</h1>
+            <!-- ko foreach: dependants -->
+            <div class="col-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title" data-bind="text: fullName"></h5>
+                        <p class="card-text">Benefit Cost: <strong>$</strong><strong data-bind="text: benefitsCost"></strong></p>
+                    </div>
+                </div>
+                <br />
+            </div>
+            <!-- /ko -->
+        </div>
+        <!-- /ko -->
+        <!-- /ko -->
+    </div>
+</div>
+
+@section scripts {
+    <script src="~/js/app/new-application.js"></script>
+}

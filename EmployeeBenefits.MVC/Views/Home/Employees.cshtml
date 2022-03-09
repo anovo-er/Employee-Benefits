@@ -1,0 +1,33 @@
+﻿@{
+    ViewData["Title"] = "Employees";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="display-4">Employees</h1>
+<hr/>                
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">First Name</th>
+      <th scope="col">Last Name</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody data-bind="foreach: employees">
+    <tr>
+      <td data-bind="text: firstName"></td>
+      <td data-bind="text: lastName"></td>
+      <td class="text-end">
+          <a class="btn btn-sm btn-primary" href="#" role="button">Preview Benefits</a>
+      </td>
+    </tr>    
+  </tbody>
+</table>
+
+
+@section scripts {
+    <script src="~/js/app/employees.js"></script>
+}
+
+
