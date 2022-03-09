@@ -1,10 +1,12 @@
 ﻿using EmployeeBenefits.MVC.Infrastructure;
 using EmployeeBenefits.MVC.Services.Contracts;
 using EmployeeBenefits.MVC.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EmployeeBenefits.MVC.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class DependantController : ControllerBase

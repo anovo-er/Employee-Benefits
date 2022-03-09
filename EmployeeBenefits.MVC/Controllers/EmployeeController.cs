@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace EmployeeBenefits.MVC.Controllers
 {
     [Route("api/[controller]")]
-    //[Authorize]
+    [Authorize]
     [ApiController]
     public class EmployeeController : ControllerBase
     {
