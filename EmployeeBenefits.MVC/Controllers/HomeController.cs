@@ -23,6 +23,12 @@ namespace EmployeeBenefits.MVC.Controllers
             return View();
         }
 
+        public IActionResult ApplicationDetails(int id)
+        {
+            ViewBag.ApplicationId = id;
+            return View();
+        }
+
         public IActionResult Employees()
         {
             return View();

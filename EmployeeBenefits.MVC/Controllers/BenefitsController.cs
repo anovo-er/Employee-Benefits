@@ -1,6 +1,7 @@
 ﻿using EmployeeBenefits.MVC.Services.Contracts;
 using EmployeeBenefits.MVC.ViewModels;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EmployeeBenefits.MVC.Controllers
@@ -22,8 +23,8 @@ namespace EmployeeBenefits.MVC.Controllers
         }
 
         [HttpGet("{employeeId}", Name = nameof(GetEmployeeBenefitsByEmployeeIdAsync))]
-        [ProducesResponseType(401)]
-        [ProducesResponseType(404)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<EmployeeBenefitsViewModel>> GetEmployeeBenefitsByEmployeeIdAsync(int employeeID)
         {
             var benefits = await _benefitsService.GetEmployeeBenefitsByEmployeeIdAsync(employeeID);

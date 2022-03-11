@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/EmployeeBenefits.MVC.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/fontawesome/css/all.min.css" />
 </head>
 <body>
     <header>
@@ -22,10 +23,10 @@
                         @if (User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Home" asp-action="NewApplication">New Application</a>
+                                <a class="nav-link text-dark" asp-controller="Home" asp-action="NewApplication"><i class="fas fa-cart-plus"></i>&nbsp;New Application</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Home" asp-action="Employees">Employees</a>
+                                <a class="nav-link text-dark" asp-controller="Home" asp-action="Employees"><i class="fas fa-users"></i>&nbsp;Employees</a>
                             </li>
                         }
                     </ul>

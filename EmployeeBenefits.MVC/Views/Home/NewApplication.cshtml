@@ -31,7 +31,7 @@
             <button type="button" class="btn btn-primary" data-bind="click: addDependant">Continue</button>
         </div>
 
-        <button type="button" class="btn btn-success" data-bind="click: addingDependant, visible: EmployeeAdded() && !AddingDependant()">Add Dependant</button>
+        <button type="button" class="btn btn-success" data-bind="click: addingDependant, visible: EmployeeAdded() && !AddingDependant()"><i class="fas fa-user-plus"></i>&nbsp;Add Dependant</button>
     </div>
     <div class="col-7" data-bind="visible: EmployeeAdded()">
         <!-- ko with: Benefits -->
@@ -54,11 +54,12 @@
         <!-- ko if: dependants.length > 0 -->
         <div class="row">
             <h1 class="display-6">Dependants</h1>
+            <hr />
             <!-- ko foreach: dependants -->
             <div class="col-4">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title" data-bind="text: fullName"></h5>
+                        <h5 class="card-title"><span data-bind="text: fullName"></span><i class="float-end btn fas fa-trash" data-bind="click: removeDependant"></i></h5>
                         <p class="card-text">Benefit Cost: <strong>$</strong><strong data-bind="text: benefitsCost"></strong></p>
                     </div>
                 </div>
