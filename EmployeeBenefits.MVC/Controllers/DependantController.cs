@@ -26,6 +26,7 @@ namespace EmployeeBenefits.MVC.Controllers
         [ProducesResponseType(401)]
         [ProducesResponseType(400)]
         [ProducesResponseType(201)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult> CreateDependantAsync([FromBody] DependantViewModel dependantViewModel) {
             
             if(!ModelState.IsValid) return BadRequest(new ApiError(ModelState));
@@ -37,7 +38,7 @@ namespace EmployeeBenefits.MVC.Controllers
             else if (newDependantId.HasValue)
                 return NotFound("EmployeeNotFound");
 
-            return BadRequest(new ApiError { Detail = message, Message = "Could not create resource"});
+            return StatusCode(StatusCodes.Status500InternalServerError, new ApiError { Message = "Database exception", Detail = message });
         }
 
         [HttpGet("{dependantId}", Name = nameof(GetDependatByIdAsync))]
@@ -49,6 +50,21 @@ namespace EmployeeBenefits.MVC.Controllers
             var dependant = await _dependatService.GetDependantByIdAsync(dependantId);
             if (dependant == null) return NotFound("Dependat Not Found!");
             return Ok(dependant);
+        }
+
+        [HttpDelete("{dependantId}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult> DeleteDependantAsync(int dependantId) {
+            var (succeded, message, dependantIdToRemove) = await _dependatService.DeleteDependantAsync(dependantId);
+
+            if (succeded)
+                return Ok();
+            else if (dependantIdToRemove.HasValue)
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            return NotFound(message);           
         }
     }
 }

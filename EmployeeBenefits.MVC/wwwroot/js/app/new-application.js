@@ -60,13 +60,10 @@
         };
 
         self.removeDependant = (dependant) => {
-
-            //delete dependant
-            console.log(`call dependat api delete endpoint with id ${dependant.Id}`);
-
-            //reload benefits calculation
+            let dependantId = dependant.id;
             let employeeId = self.Employee().EmployeeId();
-            self.loadBenefits(employeeId);
+            fetch(`/api/dependant/${dependantId}`, { method: 'Delete' })
+                .then(response => { self.loadBenefits(employeeId) })
         };
     };
     ko.applyBindings(applicationViewModel);

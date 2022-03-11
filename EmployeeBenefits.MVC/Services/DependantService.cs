@@ -45,9 +45,22 @@ namespace EmployeeBenefits.MVC.Services
             }
         }
 
-        public Task<(bool succeded, string ErrorMessage, int? DependantId)> DeleteDependantAsync(int dependantId)
+        public async Task<(bool succeded, string ErrorMessage, int? DependantId)> DeleteDependantAsync(int dependantId)
         {
-            throw new NotImplementedException();
+            var dependant = await _dbContext.Dependants.FindAsync(dependantId);
+            if (dependant == null) return (false, "Not Faund", null);
+            _dbContext.Dependants.Remove(dependant);
+
+            try
+            {
+                await _dbContext.SaveChangesAsync();
+                return (true, "Removed", null);
+            }
+            catch (Exception e)
+            {
+                _logger.LogWarning(e, "Db Error");
+                return (false, $"Operation Failed. {e.Message}", dependantId);
+            }
         }
 
         public async Task<DependantViewModel> GetDependantByIdAsync(int dependantId)
